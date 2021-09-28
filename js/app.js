@@ -53,3 +53,34 @@ $('section').each(function(){
 		}
 	});
 });
+
+function slider(sliderName, velocidade){
+	const slideClass = '.' + sliderName,
+	activeClass = 'active';
+	let rotate = setInterval(rotateSlide, velocidade);
+
+	$(slideClass +'> :first').addClass(activeClass);
+	$(slideClass).hover(function(){
+		clearInterval(rotate);
+	}, function(){ 
+		rotate = setInterval(rotateSlide, velocidade);
+	});
+
+	function rotateSlide(){
+		const activeSlide = $( slideClass + '> .' + activeClass);
+		let nextSlide = activeSlide.next();
+
+		
+
+		if(nextSlide.length === 0){
+			nextSlide = $( slideClass + '> :first');
+		}
+		activeSlide.removeClass(activeClass);
+		nextSlide.addClass(activeClass);
+	}
+
+}
+
+slider('introducao', 2000);
+
+
